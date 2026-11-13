@@ -13,6 +13,11 @@ import { formatCents, type PurchaseStat } from "@/lib/money";
 
 const tooltipFormatter = (value: unknown) => formatCents(Math.round(Number(value) * 100));
 
+const MAX_AXIS_LABEL = 6;
+function axisLabel(name: string) {
+  return name.length > MAX_AXIS_LABEL ? `${name.slice(0, MAX_AXIS_LABEL)}…` : name;
+}
+
 export function InsightsView({
   stats,
   archivedCount,
@@ -28,7 +33,7 @@ export function InsightsView({
         .sort((a, b) => b.dailyCostCents - a.dailyCostCents)
         .slice(0, 6)
         .map((stat) => ({
-          name: stat.purchase.name.length > 6 ? `${stat.purchase.name.slice(0, 6)}…` : stat.purchase.name,
+          name: stat.purchase.name,
           value: stat.dailyCostCents / 100,
           cents: stat.dailyCostCents,
         })),
@@ -121,14 +126,16 @@ export function InsightsView({
               <YAxis
                 type="category"
                 dataKey="name"
-                width={66}
+                width={76}
                 axisLine={false}
                 tickLine={false}
                 tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
+                tickFormatter={axisLabel}
               />
               <Tooltip
                 cursor={{ fill: "hsl(var(--secondary) / 0.55)" }}
-                formatter={tooltipFormatter}
+                separator=""
+                formatter={(value) => [tooltipFormatter(value), ""]}
                 contentStyle={{
                   borderRadius: 14,
                   border: "1px solid hsl(var(--border))",

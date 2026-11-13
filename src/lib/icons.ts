@@ -68,8 +68,12 @@ export function matchIconByName(name: string): IconDefinition {
   return hit?.icon ?? getIcon(DEFAULT_ICON_KEY);
 }
 
-/** 图标选择面板里的常用候选 */
+/** 图标选择面板里的常用候选：物品/耐用品靠前，消耗品靠后 */
 export const QUICK_ICON_KEYS = [
-  "coffee", "meal", "clothes", "phone", "laptop", "headphone", "book",
-  "shoes", "bag", "sport", "plant", "pet", "cake", "travel", "game", "general",
+  "phone", "laptop", "headphone", "game", "car", "watch", "toy",
+  "clothes", "shoes", "bag",
+  "sport", "book", "plant", "pet",
+  "coffee", "cake",
+  "snack", "drink", "fruit", "wine", "beauty", "medicine", "gift",
+  "general",
 ];
