@@ -41,7 +41,7 @@ export function DeltaBanner({
         </div>
         <h2 className="mt-2 text-xl font-bold tracking-tight">活跃的小票都收进归档了</h2>
         <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-          旧小票的数字已经定格，记一笔新的，时间会重新开始替你省钱。
+          旧小票已定格，记一笔新的，时间重新替你省钱。
         </p>
         <Button size="sm" className="mt-4" onClick={onStart}>
           <Sparkles className="h-4 w-4" /> 记一笔新的
@@ -63,7 +63,7 @@ export function DeltaBanner({
           东西会旧，<br />但每天的成本会变轻。
         </h2>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          记下第一次购买，明天再回来，就能看见时间替你省下的钱。
+          记下第一笔，明天回来就能看见时间省下的钱。
         </p>
         <Button size="sm" className="mt-4" onClick={onStart}>
           <Sparkles className="h-4 w-4" /> 记下第一笔
@@ -87,8 +87,8 @@ export function DeltaBanner({
         </h2>
         <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
           {delta.elapsedDays > 0 && delta.newPurchaseCount > 0
-            ? `期间记的 ${delta.newPurchaseCount} 笔新小票，明天起就能看到数字往下走。`
-            : "天数按日历更新，明天再打开，数字会自己往下走一点。"}
+            ? `期间记了 ${delta.newPurchaseCount} 笔，明天起数字往下走。`
+            : "天数按日历更新，明天打开数字会再降一点。"}
         </p>
       </motion.section>
     );
@@ -149,7 +149,7 @@ export function DeltaBanner({
 
       <p className="relative mt-3 text-[11px] leading-relaxed text-muted-foreground">
         {delta.newPurchaseCount > 0 ? `期间记了 ${delta.newPurchaseCount} 笔 · ` : ""}
-        上次查看 {lastViewedLabel(delta.lastViewedAt)} · 数字从上次的值滚到现在
+        上次查看 {lastViewedLabel(delta.lastViewedAt)} · 数字已滚到今天
       </p>
     </motion.section>
   );

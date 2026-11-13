@@ -64,8 +64,8 @@ export function InsightsView({
         <h2 className="mt-4 text-lg font-bold">{archivedCount > 0 ? "有效小票都归档了" : "回顾还是空的"}</h2>
         <p className="mt-2 max-w-[260px] text-sm leading-relaxed text-muted-foreground">
           {archivedCount > 0
-            ? `${archivedCount} 张失效小票已定格，不计入回顾。再记一笔新的，就能重新看见时间的效果。`
-            : "记下两三件东西，就能看见谁每天最费钱、哪一类花得最多。"}
+            ? `${archivedCount} 张已定格，不计入回顾。记一笔新的，重新看见时间的效果。`
+            : "记下两三件，就能看见谁每天最费钱、哪类花得最多。"}
         </p>
         <Button className="mt-5" onClick={onAdd}>
           <Sparkles className="h-4 w-4" /> 去记一笔
@@ -79,7 +79,7 @@ export function InsightsView({
       <div>
         <Badge variant="outline">成本回顾</Badge>
         <h2 className="mt-2 text-2xl font-bold tracking-tight">时间都花在哪儿了</h2>
-        <p className="mt-1 text-sm text-muted-foreground">只统计有效小票，已失效的不参与</p>
+        <p className="mt-1 text-sm text-muted-foreground">仅统计有效小票</p>
       </div>
 
       <motion.section
@@ -119,7 +119,7 @@ export function InsightsView({
           <h3 className="text-sm font-semibold">每天最费钱的小票</h3>
           <Crown className="h-4 w-4 text-warning" />
         </div>
-        <p className="mt-1 text-[11px] text-muted-foreground">单位：元 / 天，最长的一根最值得再想想</p>
+        <p className="mt-1 text-[11px] text-muted-foreground">单位：元 / 天</p>
         <div className="mt-4" style={{ height: Math.max(120, ranking.length * 42) }}>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={ranking} layout="vertical" margin={{ top: 0, right: 12, bottom: 0, left: 0 }}>
@@ -163,7 +163,7 @@ export function InsightsView({
         className="rounded-3xl border bg-card p-4 shadow-soft"
       >
         <h3 className="text-sm font-semibold">钱都花在哪类东西上</h3>
-        <p className="mt-1 text-[11px] text-muted-foreground">按图标类别汇总一次投入</p>
+        <p className="mt-1 text-[11px] text-muted-foreground">按类别汇总一次投入</p>
         <div className="mt-4 space-y-3">
           {categories.map((category) => (
             <div key={category.label}>

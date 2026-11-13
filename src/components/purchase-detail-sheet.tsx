@@ -73,7 +73,7 @@ export function PurchaseDetailSheet({
             <div className="px-5 pb-1 pt-5">
               <SheetTitle className="pr-12 text-lg font-bold">这张小票的故事</SheetTitle>
               <SheetDescription className="text-xs text-muted-foreground">
-                {archived ? "已经盖章定格，数字不会再随日期变化" : "时间越久，它每天向你收的钱就越少"}
+                {archived ? "已盖章定格，数字不再变化" : "时间越久，每天成本越低"}
               </SheetDescription>
             </div>
 
@@ -171,8 +171,8 @@ export function PurchaseDetailSheet({
                   <Coins className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
                 )}
                 {archived
-                  ? "失效小票不参与总账与回顾；想让它重新计算，可以恢复为有效。"
-                  : "按「总价 ÷ 已购天数」计算，购买当天算第 1 天，金额四舍五入到分。"}
+                  ? "失效小票不参与总账与回顾，可在下方恢复有效。"
+                  : "按总价 ÷ 已购天数计算，购买当天算第 1 天。"}
               </div>
             </div>
 
@@ -206,7 +206,7 @@ export function PurchaseDetailSheet({
                   <AlertDialogHeader>
                     <AlertDialogTitle>撕下这张小票？</AlertDialogTitle>
                     <AlertDialogDescription>
-                      「{stat.purchase.name}」的记录会从这台设备移除，之后还能撤销一次。
+                      「{stat.purchase.name}」将从这台设备移除，可撤销一次。
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>

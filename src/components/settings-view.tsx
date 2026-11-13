@@ -76,12 +76,12 @@ export function SettingsView() {
       { accent: readAccent(), themeMode: theme ?? "system" },
     );
     exportJsonBackup(JSON.stringify(content, null, 2));
-    toast.success("备份已下载", { description: "小票、图标图片和偏好都装进去了" });
+    toast.success("备份已下载", { description: "小票、图标与偏好均已包含" });
   };
 
   const handleExportCsv = () => {
     exportCsv(purchases);
-    toast.success("CSV 表格已下载", { description: "可以直接用 Excel 或表格软件打开" });
+    toast.success("CSV 表格已下载", { description: "可用 Excel 或表格软件打开" });
   };
 
   const handleImport = useCallback(
@@ -108,7 +108,7 @@ export function SettingsView() {
             lastView: current.lastView,
           });
           toast.success(`合并了 ${merged.added} 张新小票`, {
-            description: merged.added === 0 ? "备份里的小票都已经在这儿了" : `现在共 ${merged.purchases.length} 张`,
+            description: merged.added === 0 ? "备份里的都已在" : `现在共 ${merged.purchases.length} 张`,
           });
         }
       } catch (error) {
@@ -190,7 +190,7 @@ export function SettingsView() {
         <div className="mt-3 flex items-center justify-between gap-3 border-t border-border/60 pt-3">
           <div>
             <div className="text-sm font-medium">显示已失效小票</div>
-            <div className="mt-0.5 text-[11px] text-muted-foreground">关掉后归档区只留一个折叠入口</div>
+            <div className="mt-0.5 text-[11px] text-muted-foreground">关闭后归档区收为折叠入口</div>
           </div>
           <Switch
             checked={settings.showArchived}
@@ -239,7 +239,7 @@ export function SettingsView() {
           />
         </div>
         <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
-          JSON 会带上图标图片、外观偏好和失效记录，可完整恢复；CSV 供查阅，导入时只按前三列构造有效小票，已失效行会跳过。
+          JSON 含图标、偏好与失效记录，可完整恢复；CSV 仅供查阅，导入只取前三列，跳过已失效行。
         </p>
       </section>
 
@@ -253,7 +253,7 @@ export function SettingsView() {
         </div>
         <Progress value={usageRatio} className="mt-3" aria-label="本地存储占用" />
         <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
-          图片会自动压缩；快装满时先导出备份，再删掉几张上传的图标。
+          图片自动压缩；快满时先备份，再删几张上传图标。
         </p>
       </section>
 
@@ -263,7 +263,7 @@ export function SettingsView() {
           <h3 className="text-sm font-semibold">关于数据</h3>
         </div>
         <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-          这个网页没有账号、没有服务器。所有小票都写在浏览器的本地存储里，换浏览器或清理缓存前记得导出备份。
+          无账号、无服务器，数据存在本机浏览器。换设备或清缓存前先导出备份。
         </p>
         <div className="mt-4 flex items-center justify-between gap-2">
           <Button variant="outline" size="sm" onClick={handleExportJson}>
@@ -279,7 +279,7 @@ export function SettingsView() {
               <AlertDialogHeader>
                 <AlertDialogTitle>清空所有小票？</AlertDialogTitle>
                 <AlertDialogDescription>
-                  {purchases.length} 张小票、图标图片和上次查看记录都会从这台设备移除。建议先导出备份，此操作无法撤销。
+                  {purchases.length} 张小票、图标与上次查看记录都会从这台设备移除。建议先备份，此操作无法撤销。
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>

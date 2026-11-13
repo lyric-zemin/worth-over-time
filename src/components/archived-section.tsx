@@ -70,7 +70,7 @@ export function ArchivedSection({
               ))}
             </div>
             <p className="pb-1 pt-3 text-center text-[11px] text-muted-foreground">
-              这些小票的数字已经定格，不会再随时间变化
+              这些小票已定格，不再随时间变化
             </p>
           </motion.div>
         ) : null}

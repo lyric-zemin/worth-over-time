@@ -78,7 +78,7 @@ export function ReceiptList({
           </div>
           <h3 className="mt-5 text-lg font-bold">还没有小票</h3>
           <p className="mt-2 max-w-[260px] text-sm leading-relaxed text-muted-foreground">
-            记下一件陪伴你的东西，时间和价格会一起算给你看。
+            记一件东西，时间和价格帮你算好。
           </p>
           <Button className="mt-5" onClick={onAdd}>
             <ReceiptText className="h-4 w-4" /> 撕一张新小票
@@ -97,7 +97,7 @@ export function ReceiptList({
           </div>
           <h3 className="mt-4 text-lg font-bold">小票都收进归档了</h3>
           <p className="mt-2 max-w-[260px] text-sm leading-relaxed text-muted-foreground">
-            旧小票的数字已经定格；再记一笔新的，时间会重新开始替你省钱。
+            旧小票已定格，再记一笔，时间重新替你省钱。
           </p>
           <Button className="mt-5" onClick={onAdd}>
             <ReceiptText className="h-4 w-4" /> 记一笔新的
@@ -122,7 +122,7 @@ export function ReceiptList({
             </AnimatePresence>
           </div>
           <p className="px-1 pb-1 text-center text-[11px] text-muted-foreground">
-            向左滑动小票可以撕下，点开看它陪你的日子
+            左滑撕下，点开看陪伴天数
           </p>
         </>
       ) : null}

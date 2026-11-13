@@ -120,14 +120,14 @@ export function IconPicker({
           type="button"
           variant="ghost"
           size="sm"
-          aria-label="恢复按名称匹配的图标"
+          aria-label="恢复默认图标"
           onClick={() => onChange({ iconKey: value.iconKey })}
         >
           <RotateCcw className="h-4 w-4" /> 重置
         </Button>
       </div>
       <p className="flex items-center gap-1 text-[11px] text-muted-foreground">
-        <ImagePlus className="h-3 w-3" /> 图片会裁成正方形并压缩后保存在这台设备的浏览器里
+        <ImagePlus className="h-3 w-3" /> 图片会裁方压缩，存在本机浏览器里
       </p>
     </div>
   );

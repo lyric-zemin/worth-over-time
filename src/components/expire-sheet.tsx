@@ -51,7 +51,7 @@ export function ExpireSheet({
   const handleConfirm = () => {
     const text = normalizeReason(reason);
     if (!text) {
-      setError("写一句失效原因吧，以后翻出来才知道发生了什么");
+      setError("写一句失效原因吧");
       return;
     }
     if (!purchase || !validDate) {
@@ -69,7 +69,7 @@ export function ExpireSheet({
             <div className="px-5 pb-1 pt-5">
               <SheetTitle className="pr-12 text-xl font-bold tracking-tight">给这张小票盖章</SheetTitle>
               <SheetDescription className="mt-1 text-xs text-muted-foreground">
-                盖上章之后，天数和每天的成本就停在这一天了
+                盖章后，天数与日均成本定格在这一天
               </SheetDescription>
             </div>
 
@@ -108,7 +108,7 @@ export function ExpireSheet({
                     onChange={setDate}
                   />
                 </div>
-                <p className="text-[11px] text-muted-foreground">只能选购买日到今天之间的日子</p>
+                <p className="text-[11px] text-muted-foreground">可选购买日到今天的任意一天</p>
               </div>
 
               <div className="space-y-2">
@@ -179,12 +179,12 @@ export function ExpireSheet({
                   <p className="mt-2 text-xs text-destructive">请选择有效的失效日期</p>
                 )}
                 <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">
-                  之后刷新、跨天或导出导入，这张小票都保持这两个数字。
+                  定格后不再随日期变化
                 </p>
               </div>
 
               <p className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
-                <Clock3 className="h-3.5 w-3.5" /> 盖章的操作时间会自动记下，显示到分钟
+                <Clock3 className="h-3.5 w-3.5" /> 操作时间自动记下，显示到分钟
               </p>
 
               {error ? (

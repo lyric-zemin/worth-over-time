@@ -177,7 +177,7 @@ export function ReceiptCard({
           <AlertDialogHeader>
             <AlertDialogTitle>撕下这张小票？</AlertDialogTitle>
             <AlertDialogDescription>
-              撕下后可以在提示里撤销，把它放回小票墙。
+              撕下后可在提示里撤销，放回小票墙。
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
