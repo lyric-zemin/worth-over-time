@@ -124,11 +124,6 @@ export function SettingsView() {
 
   return (
     <div className="space-y-5">
-      <div>
-        <h2 className="text-2xl font-bold tracking-tight">我的小票夹</h2>
-        <p className="mt-1 text-sm text-muted-foreground">数据只在这台设备上，随时可以带走</p>
-      </div>
-
       <section className="rounded-3xl border bg-card p-4 shadow-soft">
         <div className="flex items-center gap-2">
           <Palette className="h-4 w-4 text-primary" />
@@ -206,11 +201,11 @@ export function SettingsView() {
           <h3 className="text-sm font-semibold">备份与带走</h3>
         </div>
         <div className="mt-3 grid grid-cols-2 gap-2">
-          <Button variant="outline" className="h-auto flex-col gap-1 py-3" onClick={handleExportJson}>
+          <Button variant="outline" className="h-auto gap-1 py-3" onClick={handleExportJson}>
             <FileJson className="h-4 w-4" />
             <span className="text-xs">JSON 全量备份</span>
           </Button>
-          <Button variant="outline" className="h-auto flex-col gap-1 py-3" onClick={handleExportCsv}>
+          <Button variant="outline" className="h-auto gap-1 py-3" onClick={handleExportCsv}>
             <FileSpreadsheet className="h-4 w-4" />
             <span className="text-xs">CSV 表格</span>
           </Button>

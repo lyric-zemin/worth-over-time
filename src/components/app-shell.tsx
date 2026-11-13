@@ -219,7 +219,7 @@ export function AppShell() {
           tab === "home"
             ? `${formatDateCN(dayKey || todayKey())} · 小票墙`
             : tab === "insights"
-              ? "累计陪伴与花费一览"
+              ? "仅统计有效小票"
               : "外观、数据与偏好";
         return (
           <motion.header

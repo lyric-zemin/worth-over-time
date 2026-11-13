@@ -76,12 +76,6 @@ export function InsightsView({
 
   return (
     <div className="space-y-5">
-      <div>
-        <Badge variant="outline">成本回顾</Badge>
-        <h2 className="mt-2 text-2xl font-bold tracking-tight">时间都花在哪儿了</h2>
-        <p className="mt-1 text-sm text-muted-foreground">仅统计有效小票</p>
-      </div>
-
       <motion.section
         initial={{ opacity: 0, y: 14 }}
         animate={{ opacity: 1, y: 0 }}
