@@ -1,0 +1,66 @@
+name: 部署到 GitHub Pages
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 配置 Pages
+        uses: actions/configure-pages@v5
+
+      # 项目站点（如 /worth-over-time）需要 basePath；用户站点（<用户名>.github.io）用根路径。
+      # 由仓库名自动推导，换仓库名也不需要改这个文件。
+      - name: 构建静态站点
+        env:
+          STATIC_EXPORT: "true"
+        run: |
+          REPO_NAME="${GITHUB_REPOSITORY#*/}"
+          OWNER_SITE="${GITHUB_REPOSITORY_OWNER}.github.io"
+          if [ "$REPO_NAME" = "$OWNER_SITE" ]; then
+            echo "用户站点仓库：使用根路径"
+            npm run build
+          else
+            echo "项目站点仓库：basePath=/$REPO_NAME"
+            NEXT_PUBLIC_BASE_PATH="/$REPO_NAME" npm run build
+          fi
+
+      # 让 Pages 保留 _next 目录，否则 JS/CSS 会 404。
+      - name: 关闭 Jekyll 处理
+        run: touch out/.nojekyll
+
+      - name: 上传产物
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+      - name: 发布
+        id: deployment
+        uses: actions/deploy-pages@v4
