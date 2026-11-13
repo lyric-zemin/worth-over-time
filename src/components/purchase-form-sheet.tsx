@@ -1,14 +1,13 @@
 "use client";
 
-import { CalendarDays, Check, Sparkles } from "lucide-react";
+import { Check, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { IconPicker, type IconChoice } from "@/components/icon-picker";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
+import { DateWheel } from "@/components/ui/date-wheel";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
 import { dateKeyToDate, formatDateCN, isFutureDateKey, toDateKey } from "@/lib/date";
 import { haptic } from "@/lib/feedback";
@@ -159,28 +158,13 @@ export function PurchaseFormSheet({
           </div>
 
           <div className="space-y-1.5">
-            <Label>哪天买的</Label>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button variant="outline" className="w-full justify-start gap-2 rounded-2xl" type="button">
-                  <CalendarDays className="h-4 w-4 text-primary" />
-                  <span className="text-sm font-semibold">{formatDateCN(dateKeyValue)}</span>
-                  <span className="ml-auto text-[11px] text-muted-foreground">修改</span>
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-[320px]" align="start">
-                <Calendar
-                  selected={date}
-                  disabled={(day) => isFutureDateKey(toDateKey(day))}
-                  onSelect={(next) => next && setDate(next)}
-                />
-                <PopoverClose asChild>
-                  <Button size="sm" className="mt-3 w-full" type="button" onClick={() => setDate(new Date())}>
-                    <Check className="h-4 w-4" /> 就今天
-                  </Button>
-                </PopoverClose>
-              </PopoverContent>
-            </Popover>
+            <div className="flex items-center justify-between">
+              <Label>哪天买的</Label>
+              <span className="text-[11px] text-muted-foreground">{formatDateCN(dateKeyValue)}</span>
+            </div>
+            <div className="rounded-2xl border border-border/70 bg-card/60 p-2">
+              <DateWheel value={date} maxDate={new Date()} onChange={setDate} />
+            </div>
           </div>
 
           <div className="space-y-2">

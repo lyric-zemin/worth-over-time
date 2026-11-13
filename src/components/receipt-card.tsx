@@ -2,7 +2,17 @@
 
 import { motion } from "framer-motion";
 import { Trash2 } from "lucide-react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { AnimatedNumber } from "@/components/animated-number";
 import { formatDateCN, formatDateShort } from "@/lib/date";
 import { formatExpiredAt } from "@/lib/expiry";
@@ -26,6 +36,7 @@ export function ReceiptCard({
   onClickable?: boolean;
 }) {
   const dragged = useRef(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const { purchase, daysOwned, dailyCostCents } = stat;
   const icon = getIcon(purchase.iconKey);
   const expiry = purchase.expiry;
@@ -49,11 +60,12 @@ export function ReceiptCard({
         drag="x"
         dragConstraints={{ left: -110, right: 0 }}
         dragElastic={0.16}
+        dragSnapToOrigin
         onDragStart={() => {
           dragged.current = true;
         }}
         onDragEnd={(_, info) => {
-          if (info.offset.x < -88) onDelete(purchase.id);
+          if (info.offset.x < -88) setConfirmOpen(true);
           window.setTimeout(() => {
             dragged.current = false;
           }, 180);
@@ -159,6 +171,26 @@ export function ReceiptCard({
           </div>
         </div>
       </motion.div>
+
+      <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>撕下这张小票？</AlertDialogTitle>
+            <AlertDialogDescription>
+              撕下后可以在提示里撤销，把它放回小票墙。
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>留着</AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              onClick={() => onDelete(purchase.id)}
+            >
+              撕下
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </motion.div>
   );
 }

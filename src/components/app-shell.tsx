@@ -2,8 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import dynamic from "next/dynamic";
-import { useTheme } from "next-themes";
-import { BarChart3, Home, Moon, Plus, Settings2, Sun } from "lucide-react";
+import { BarChart3, Home, Plus, Settings2 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 import { DeltaBanner } from "@/components/delta-banner";
@@ -13,8 +12,7 @@ import { PurchaseFormSheet } from "@/components/purchase-form-sheet";
 import { ReceiptList } from "@/components/receipt-list";
 import { SettingsView } from "@/components/settings-view";
 import { SummaryCard } from "@/components/summary-card";
-import { Button } from "@/components/ui/button";
-import { formatDateCN, greetingForHour, todayKey } from "@/lib/date";
+import { formatDateCN, todayKey } from "@/lib/date";
 import { haptic } from "@/lib/feedback";
 import { computeArchivedStats, computeStats } from "@/lib/money";
 import { createSnapshot, diffSnapshots } from "@/lib/snapshot";
@@ -57,8 +55,9 @@ export function AppShell() {
   const [expireId, setExpireId] = useState<string | null>(null);
   const initialCaptured = useRef(false);
   const lastCaptureAt = useRef(0);
+  const lastY = useRef(0);
+  const [collapsed, setCollapsed] = useState(false);
 
-  const { resolvedTheme, setTheme } = useTheme();
   const purchases = useLedgerStore((state) => state.purchases);
   const sortBy = useLedgerStore((state) => state.settings.sortBy);
   const hapticsEnabled = useLedgerStore((state) => state.settings.haptics);
@@ -112,6 +111,17 @@ export function AppShell() {
     };
   }, [captureView]);
 
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y > lastY.current && y > 8) setCollapsed(true);
+      else if (y < lastY.current - 4) setCollapsed(false);
+      lastY.current = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const stats = useMemo(() => computeStats(purchases, dayKey || todayKey()), [purchases, dayKey]);
   const archivedStats = useMemo(() => computeArchivedStats(purchases), [purchases]);
   const deltaMap = useMemo(
@@ -139,6 +149,7 @@ export function AppShell() {
         aria-current={active ? "page" : undefined}
         onClick={() => {
           setTab(item.key);
+          setCollapsed(false);
           haptic(hapticsEnabled);
         }}
         className={`flex h-14 w-[72px] flex-col items-center justify-center gap-1 rounded-2xl text-[11px] font-semibold transition-colors ${
@@ -202,27 +213,32 @@ export function AppShell() {
         <div className="receipt-paper h-64 rotate-[11deg] rounded-2xl border opacity-35 shadow-receipt" />
       </div>
 
-      <header className="glass-bar fixed left-1/2 top-0 z-30 w-full max-w-[440px] -translate-x-1/2">
-        <div className="flex h-[72px] items-center justify-between gap-3 px-5">
-          <div className="min-w-0">
-            <p className="text-[11px] font-medium tabular text-muted-foreground">
-              {formatDateCN(dayKey || todayKey())} · 时间小票
-            </p>
-            <h1 className="truncate text-lg font-bold tracking-tight">
-              {greetingForHour(new Date().getHours())}，来看看小票
-            </h1>
-          </div>
-          <Button
-            variant="outline"
-            size="icon"
-            className="shrink-0 bg-card/70"
-            aria-label={resolvedTheme === "dark" ? "切换到浅色" : "切换到深色"}
-            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+      {(() => {
+        const headerTitle = tab === "home" ? "时间小票" : tab === "insights" ? "回顾" : "我的";
+        const headerSubtitle =
+          tab === "home"
+            ? `${formatDateCN(dayKey || todayKey())} · 小票墙`
+            : tab === "insights"
+              ? "累计陪伴与花费一览"
+              : "外观、数据与偏好";
+        return (
+          <motion.header
+            className="glass-bar fixed left-1/2 top-0 z-30 w-full max-w-[440px] -translate-x-1/2 overflow-hidden"
+            initial={false}
+            animate={{ height: collapsed ? 52 : 72 }}
+            transition={{ duration: 0.22, ease: "easeInOut" }}
           >
-            {resolvedTheme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-          </Button>
-        </div>
-      </header>
+            <div className="flex h-full items-center px-5">
+              <div className="min-w-0">
+                {!collapsed ? (
+                  <p className="text-[11px] font-medium tabular text-muted-foreground">{headerSubtitle}</p>
+                ) : null}
+                <h1 className="truncate text-lg font-bold tracking-tight">{headerTitle}</h1>
+              </div>
+            </div>
+          </motion.header>
+        );
+      })()}
 
       <main className="relative px-4 pb-[126px] pt-[88px]">
         <AnimatePresence mode="wait">

@@ -1,15 +1,14 @@
 "use client";
 
-import { Archive, CalendarDays, Check, Clock3 } from "lucide-react";
+import { Archive, Check, Clock3 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { AnimatedNumber, integerFormatter } from "@/components/animated-number";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
+import { DateWheel } from "@/components/ui/date-wheel";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@/components/ui/sheet";
-import { formatDateCN, toDateKey } from "@/lib/date";
+import { dateKeyToDate, formatDateCN, toDateKey } from "@/lib/date";
 import {
   EXPIRY_REASONS,
   MAX_REASON_LENGTH,
@@ -97,28 +96,18 @@ export function ExpireSheet({
               </div>
 
               <div className="space-y-1.5">
-                <Label>哪天起不再陪伴</Label>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button variant="outline" type="button" className="w-full justify-start gap-2 rounded-2xl">
-                      <CalendarDays className="h-4 w-4 text-primary" />
-                      <span className="text-sm font-semibold">{formatDateCN(dateKeyValue)}</span>
-                      <span className="ml-auto text-[11px] text-muted-foreground">可回溯</span>
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-[320px]" align="start">
-                    <Calendar
-                      selected={date}
-                      disabled={(day) => !isValidExpiryDate(toDateKey(day), purchase.purchasedAt)}
-                      onSelect={(next) => next && setDate(next)}
-                    />
-                    <PopoverClose asChild>
-                      <Button size="sm" type="button" className="mt-3 w-full" onClick={() => setDate(new Date())}>
-                        <Check className="h-4 w-4" /> 就今天
-                      </Button>
-                    </PopoverClose>
-                  </PopoverContent>
-                </Popover>
+                <div className="flex items-center justify-between">
+                  <Label>哪天起不再陪伴</Label>
+                  <span className="text-[11px] text-muted-foreground">{formatDateCN(dateKeyValue)}</span>
+                </div>
+                <div className="rounded-2xl border border-border/70 bg-card/60 p-2">
+                  <DateWheel
+                    value={date}
+                    minDate={dateKeyToDate(purchase.purchasedAt)}
+                    maxDate={new Date()}
+                    onChange={setDate}
+                  />
+                </div>
                 <p className="text-[11px] text-muted-foreground">只能选购买日到今天之间的日子</p>
               </div>
 
