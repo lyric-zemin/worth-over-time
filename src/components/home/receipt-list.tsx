@@ -3,8 +3,8 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowDownWideNarrow, Archive, ReceiptText, Sparkles } from "lucide-react";
 import { useMemo } from "react";
-import { ArchivedSection } from "@/components/archived-section";
-import { ReceiptCard } from "@/components/receipt-card";
+import { ArchivedSection } from "@/components/home/archived-section";
+import { ReceiptCard } from "@/components/home/receipt-card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import type { PurchaseStat } from "@/lib/money";

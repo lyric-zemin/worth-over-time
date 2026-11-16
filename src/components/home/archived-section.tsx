@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Archive, ChevronDown } from "lucide-react";
 import { useMemo } from "react";
-import { ReceiptCard } from "@/components/receipt-card";
+import { ReceiptCard } from "@/components/home/receipt-card";
 import { Badge } from "@/components/ui/badge";
 import type { PurchaseStat } from "@/lib/money";
 import { sortPurchaseStats } from "@/lib/sort";

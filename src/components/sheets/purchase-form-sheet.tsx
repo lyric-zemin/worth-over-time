@@ -3,7 +3,7 @@
 import { Check, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { IconPicker, type IconChoice } from "@/components/icon-picker";
+import { IconPicker, type IconChoice } from "@/components/sheets/icon-picker";
 import { Button } from "@/components/ui/button";
 import { DateWheel } from "@/components/ui/date-wheel";
 import { Input } from "@/components/ui/input";

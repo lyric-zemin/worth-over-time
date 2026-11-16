@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Archive, CalendarDays, Coins, Pencil, RotateCcw, Trash2 } from "lucide-react";
 import { useState } from "react";
-import { AnimatedNumber, integerFormatter } from "@/components/animated-number";
+import { AnimatedNumber, integerFormatter } from "@/components/shared/animated-number";
 import {
   AlertDialog,
   AlertDialogAction,

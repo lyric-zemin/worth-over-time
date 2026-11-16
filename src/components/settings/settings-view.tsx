@@ -24,7 +24,7 @@ import {
   readAccent,
   useAccent,
   type AccentTheme,
-} from "@/components/theme-provider";
+} from "@/components/shared/theme-provider";
 import {
   AlertDialog,
   AlertDialogAction,

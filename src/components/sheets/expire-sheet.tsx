@@ -2,7 +2,7 @@
 
 import { Archive, Check, Clock3 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { AnimatedNumber, integerFormatter } from "@/components/animated-number";
+import { AnimatedNumber, integerFormatter } from "@/components/shared/animated-number";
 import { Button } from "@/components/ui/button";
 import { DateWheel } from "@/components/ui/date-wheel";
 import { Input } from "@/components/ui/input";

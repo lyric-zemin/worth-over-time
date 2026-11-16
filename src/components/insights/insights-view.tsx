@@ -4,12 +4,13 @@ import { motion } from "framer-motion";
 import { CalendarRange, Crown, Hourglass, Sparkles } from "lucide-react";
 import { useMemo } from "react";
 import { Bar, BarChart, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { AnimatedNumber, integerFormatter } from "@/components/animated-number";
+import { useLedgerUi } from "@/components/layout/app-ui-provider";
+import { AnimatedNumber, integerFormatter } from "@/components/shared/animated-number";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { formatDateShort } from "@/lib/date";
 import { getIcon } from "@/lib/icons";
-import { formatCents, type PurchaseStat } from "@/lib/money";
+import { formatCents } from "@/lib/money";
 
 const tooltipFormatter = (value: unknown) => formatCents(Math.round(Number(value) * 100));
 
@@ -18,15 +19,12 @@ function axisLabel(name: string) {
   return name.length > MAX_AXIS_LABEL ? `${name.slice(0, MAX_AXIS_LABEL)}…` : name;
 }
 
-export function InsightsView({
-  stats,
-  archivedCount,
-  onAdd,
-}: {
-  stats: PurchaseStat[];
-  archivedCount: number;
-  onAdd: () => void;
-}) {
+export function InsightsView() {
+  const { stats: ledgerStats, archivedStats, openCreate } = useLedgerUi();
+  const stats = ledgerStats.stats;
+  const archivedCount = archivedStats.length;
+  const onAdd = openCreate;
+
   const ranking = useMemo(
     () =>
       [...stats]

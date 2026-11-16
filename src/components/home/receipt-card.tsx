@@ -13,7 +13,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { AnimatedNumber } from "@/components/animated-number";
+import { AnimatedNumber } from "@/components/shared/animated-number";
 import { formatDateCN, formatDateShort } from "@/lib/date";
 import { formatExpiredAt } from "@/lib/expiry";
 import { getIcon } from "@/lib/icons";

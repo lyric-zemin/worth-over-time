@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { CalendarClock, Sparkles, TrendingDown } from "lucide-react";
-import { AnimatedNumber, integerFormatter } from "@/components/animated-number";
+import { AnimatedNumber, integerFormatter } from "@/components/shared/animated-number";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import type { DeltaSummary } from "@/types/ledger";

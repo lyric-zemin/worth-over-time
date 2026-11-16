@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Coins, Layers3, Wallet } from "lucide-react";
-import { AnimatedNumber, integerFormatter } from "@/components/animated-number";
+import { AnimatedNumber, integerFormatter } from "@/components/shared/animated-number";
 
 export function SummaryCard({
   totalCents,

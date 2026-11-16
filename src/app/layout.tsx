@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/components/shared/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
